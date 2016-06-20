@@ -12,14 +12,12 @@ var nightmare = Nightmare();
 var downloadInfo = nightmare
     .goto('https://github.com/segmentio/nightmare')
     .click('a[href="/segmentio/nightmare/archive/master.zip"]')
-    .download('/some/other/path/master.zip')
-    .evaluate(function(downloadInfo) {
-        return {path: downloadInfo.path, name: downloadInfo.filename}
-    })
+    // this will move the download to this file (relative to current directory)
+    .download('downloads/master.zip')
     .end()
     .then(function (val) {
-        console.log('DONE: ' + val)
+        console.log('DONE:', val)
     })
     .catch(function (error) {
-        console.log("ERROR: " + JSON.stringify(error))
+        console.log("ERROR:", error)
     });
